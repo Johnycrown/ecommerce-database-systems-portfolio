@@ -1,0 +1,36 @@
+# Create a customer shopping cart.
+
+HSET cart:customer:2 GAD-PHN-001 1 HOME-BLD-001 2
+
+# Retrieve cart items.
+
+HGETALL cart:customer:2
+
+# Set cart expiry to 24 hours.
+
+EXPIRE cart:customer:2 86400
+
+# Check remaining expiry.
+
+TTL cart:customer:2
+
+
+# Cache product information for 15 minutes.
+
+SET product:sku:GAD-PHN-001 '{"sku":"GAD-PHN-001","price":285000,"currency":"NGN"}' EX 900
+
+# Retrieve cached product.
+
+GET product:sku:GAD-PHN-001
+
+
+# Increment product views.
+
+INCR product:views:GAD-PHN-001
+
+GET product:views:GAD-PHN-001
+
+
+# Delete stale product cache.
+
+DEL product:sku:GAD-PHN-001
